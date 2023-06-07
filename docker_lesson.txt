@@ -146,4 +146,7 @@ Dockerfileとコンテナ内で使える。
 ARGインストラクションはビルド時にユーザーが渡せる変数。
 Dockerfileで使える。
 
+・WORKDIRインストラクション
+RUNなどのコマンドを実行する作業ディレクトリを指定できる
+
 docker composeとは？
