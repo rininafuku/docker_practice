@@ -87,17 +87,26 @@ docker container exec コンテナ名 /bin/bash
 コンテナ内のシェルにアクセスしたいとき
 コンテナ内でコマンドを実行したいとき：アプリケーションファイルの実行など
 コンテナ内の設定の変更したいとき
-
 ※補足
 シェルのコマンドを実行する場合は -itオプションを使用する
 bashが起動して直ぐに終了するため、連動してコンテナも終了してしまう。
 
+
+・dockerfileの作成手順
+ベースイメージを決める
+Dockerコンテナの中に入る
+必要な作業を行う（コマンドが正しく動くか確認）
+動作したコマンドをDockerfileに記載する
+イメージとコンテナを作る
+
+
 ・Dockerfileのインストラクション
 FROM : Dockerイメージのベースを指定する
-COPY : ローカルのアプリケーションコードをDockerにコピーする
+COPY : ローカルのアプリケーションコードをDockerイメージにコピーする
 RUN : イメージのbuild時にコンテナ内で実行するコマンドを記載
       ここでライブラリのインストールなどを行う
 CMD : コンテナ起動時に実行するコマンド
+
 
 ・シェルと-itオプションについて
 docker run時にDockerfileでシェルを起動して何もしないと、シェルはすぐに終了するためコンテナも終了する
@@ -132,23 +141,9 @@ CMD [ "apachectl" "-D" "FOREGROUND" ]
 ※補足
 FOREGROUNDでapacheを起動するとコマンドラインが使えなくなるので-dオプションでデタッチモードにすること
 
-・dockerfileの作成手順
-ベースイメージを決める
-Dockerコンテナの中に入る
-必要な作業を行う（コマンドが動くか確認）
-Dockerfileに記載する
-イメージとコンテナを作る
-
-
-FROMでapacheベースを定義
-コンテナを起動して動作確認に進む
-ubuntuはbashを使用しているのでコンテナ起動してもすぐに終了する
-なのでitオプションを使う。-dでバックグラウンドで動作させる。マッピングする。
-apacheのインストールをする
-apacheをstartさせる
-apacheのstatusを確認する
-
-apacheはvar/www/htmlのindex.htmlを参照するようになっている
-COPYコマンドでhtml配下にトップページをおく
+・COPYコマンド
+ローカルファイルをDockerイメージにコピーする
+apacheは/var/www/html/のindex.htmlを参照するようになっているので、COPYコマンドでhtml配下にトップページをおく
+これで、apacheとマッピングされているlocalhostポートにアクセスするとindex.htmlが表示される。
 
 docker composeとは？
