@@ -134,9 +134,16 @@ CMD [ "apachectl" "-D" "FOREGROUND" ]
 ※補足
 FOREGROUNDでapacheを起動するとコマンドラインが使えなくなるので-dオプションでデタッチモードにすること
 
-・COPYコマンド
+・COPYインストラクション
 ローカルファイルをDockerイメージにコピーする
 apacheは/var/www/html/のindex.htmlを参照するようになっているので、COPYコマンドでhtml配下にトップページをおく
 これで、apacheとマッピングされているlocalhostポートにアクセスするとindex.htmlが表示される。
+
+・ENVインストラクション
+環境変数を管理するインストラクション
+Dockerfileとコンテナ内で使える。
+
+ARGインストラクションはビルド時にユーザーが渡せる変数。
+Dockerfileで使える。
 
 docker composeとは？
